@@ -28,8 +28,9 @@ def hello_monkey():
         # Greet the caller by name
         user_input = 0
         resp.say("Hello " + callers[from_number]+ "Please type in the fizzbuzz sequence you want, up to 999 and press *")
-        with resp.gather(numDigits=3, action="/handle-key", method="POST",finishOnKey = "*") as g:
+        with resp.gather(action="/handle-key", method="POST",finishOnKey = "*") as g:
             g.say("To speak to a real monkey, press 1. Press any other key to start over.")
+    
     else:
         resp.say("Hello Monkey")
  
@@ -39,20 +40,26 @@ def hello_monkey():
 def handle_key():
     """Handle key press from a user."""
  
+    '''
     # Get the digit pressed by the user
     digit_pressed = request.values.get('Digits', None)
     if digit_pressed == "*":
         resp = twilio.twiml.Response()
         # Dial (310) 555-1212 - connect that number to the incoming caller.
-        resp.dial(varun_twilio)
+        #resp.dial(varun_twilio)
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
  
         return str(resp)
- 
     # If the caller pressed anything but 1, redirect them to the homepage.
     else:
         return redirect("/")
+    '''
+    num_in = request.values.get('Digits',None)
+    out = fizzbuzz(num_in)
+    resp = twilio.twiml.Response()
+    resp.say(out)
+    return redirect("/")
 
 def fizzbuzz(digit_in):
     output_str = ""
