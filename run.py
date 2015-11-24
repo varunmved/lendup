@@ -63,17 +63,17 @@ def handle_key():
 
 def fizzbuzz(digit_in):
     output_str = ""
-    for i in (0,digit_in):
+    for i in range (0,digit_in):
         if i % 3 == 0 and i % 5 == 0:
-            output_str.append('Fizz Buzz')
+            output_str+=(' Fizz Buzz ')
         elif i % 3 ==0:
-            output_str.append('Fizz')
+            output_str+=(' Fizz ')
         elif i % 5 ==0:
-            output_str.append('Buzz')
+            output_str+=(' Buzz ')
         else:
-            output_str.append(str(i))
+            output_str+=(' '+str(i) + ' ')
     return output_str
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) 
