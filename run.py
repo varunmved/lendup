@@ -45,15 +45,17 @@ def handle_key():
     if digit_pressed == "1":
         resp = twilio.twiml.Response()
         # Dial (310) 555-1212 - connect that number to the incoming caller.
-        #resp.dial("+13105551212")
+        resp.dial("+13105551212")
+        '''
         with resp.gather(numDigits=3, action="/handle-key", method="POST", finishOnKey= "*") as g:
             hello  = fizzbuzz(int(g))
         # If the dial fails:
         
         resp.say("The call failed, or the remote party hung up. Goodbye.")
         
- 
-        return str(hello)
+        '''
+
+        return str(resp)
  
     # If the caller pressed anything but 1, redirect them to the homepage.
     else:
