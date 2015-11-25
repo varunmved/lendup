@@ -46,16 +46,23 @@ def handle_key():
         resp = twilio.twiml.Response()
         # Dial (310) 555-1212 - connect that number to the incoming caller.
         #resp.dial("+13105551212")
+        with resp.gather(numDigits=3, action="/handle-key", method="POST", finishOnKey= "*") as g:
+            hello  = fizzbuzz(int(g))
         # If the dial fails:
+        
         resp.say("The call failed, or the remote party hung up. Goodbye.")
-
+        
  
-        return str(resp)
+        return str(hello)
  
     # If the caller pressed anything but 1, redirect them to the homepage.
     else:
         return redirect("/")
- 
+'''
+@app.route("/handle-fizzbuzz",methods=['GET','POST'])
+def handle_fizzbuzz():
+    """Handles fizzbuzz"""
+'''
 '''
 @app.route("/", methods=['GET', 'POST'])
 def hello_monkey():
