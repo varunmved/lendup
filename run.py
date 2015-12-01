@@ -51,16 +51,10 @@ def handle_key():
         '''
         fizzBuzzString = fizzbuzz(rawVal)
         resp.say(fizzBuzzString)
-    return str(resp)
-   
-   else:
+        return str(resp)
+    else:
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
-        
-    return str(resp)
- 
-    # If the caller pressed anything but 1, redirect them to the homepage.
-    else:
         return redirect("/")
 
 @app.route("/handle-fizzbuzz/<fizzbuzzInt>",methods=['GET','POST'])
