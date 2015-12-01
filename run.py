@@ -31,8 +31,8 @@ def hello_monkey():
      
     # Say a command, and listen for the caller to press a key. When they press
     # a key, redirect them to /handle-key.
-    with resp.gather(numDigits=1, action="/handle-key", method="POST") as g:
-        g.say("To play fizz buzz, press 1. Press any other key to start over.")
+    with resp.gather(numDigits=2, action="/handle-key", method="POST") as g:
+        g.say("To play fizz buzz, please enter a 2 digit number")
  
     return str(resp)
  
@@ -42,74 +42,31 @@ def handle_key():
  
     # Get the digit pressed by the user
     digit_pressed = request.values.get('Digits', None)
-    if digit_pressed == "1":
+    if digit_pressed.isdigit():
+        rawVal = int(digit_pressed)
         resp = twilio.twiml.Response()
-        # Dial (310) 555-1212 - connect that number to the incoming caller.
-        resp.dial("+13105551212")
         '''
-        with resp.gather(numDigits=3, action="/handle-key", method="POST", finishOnKey= "*") as g:
+        with resp.gather(numDigits=3, action="/handle-fizzbuzz", method="POST", finishOnKey= "*") as g:
             hello  = fizzbuzz(int(g))
-        # If the dial fails:
-        
-        resp.say("The call failed, or the remote party hung up. Goodbye.")
-        
         '''
-
-        return str(resp)
- 
-    # If the caller pressed anything but 1, redirect them to the homepage.
-    else:
-        return redirect("/")
-'''
-@app.route("/handle-fizzbuzz",methods=['GET','POST'])
-def handle_fizzbuzz():
-    """Handles fizzbuzz"""
-'''
-'''
-@app.route("/", methods=['GET', 'POST'])
-def hello_monkey():
-    # Get the caller's phone number from the incoming Twilio request
-    from_number = request.values.get('From', None)
-    resp = twilio.twiml.Response()
- 
-    # if the caller is someone we know:
-    if from_number in callers:
-        # Greet the caller by name
-        user_input = 0
-        resp.say("Hello " + callers[from_number]+ "Please type in the fizzbuzz sequence you want, up to 999 and press *")
-        with resp.gather(action="/handle-key", method="POST",finishOnKey = "*") as g:
-            g.say("To speak to a real monkey, press 1. Press any other key to start over.")
-    
-    else:
-        resp.say("Hello Monkey")
- 
+        fizzBuzzString = fizzbuzz(rawVal)
+        resp.say(fizzBuzzString)
     return str(resp)
-
-@app.route("/handle-key", methods=['GET', 'POST'])
-def handle_key():
-    """Handle key press from a user."""
- 
-    # Get the digit pressed by the user
-    digit_pressed = request.values.get('Digits', None)
-    if digit_pressed == "*":
-        resp = twilio.twiml.Response()
-        # Dial (310) 555-1212 - connect that number to the incoming caller.
-        #resp.dial(varun_twilio)
+   
+   else:
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
+        
+    return str(resp)
  
-        return str(resp)
     # If the caller pressed anything but 1, redirect them to the homepage.
     else:
         return redirect("/")
-   
-    num_in = request.values.get('Digits',None)
-    out = fizzbuzz(num_in)
-    resp = twilio.twiml.Response()
-    resp.say(out)
-    return redirect("/")
-  
-'''
+
+@app.route("/handle-fizzbuzz/<fizzbuzzInt>",methods=['GET','POST'])
+def handle_fizzbuzz(fizzbuzzInt):
+    """Handles fizzbuzz"""
+
 def fizzbuzz(digit_in):
     output_str = ""
     for i in range (0,digit_in):
