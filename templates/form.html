@@ -1,0 +1,19 @@
+
+m base layout -->
+{% block content %}
+<h1>Enter a number to call back!</h1>
+<form action="" method="post" name="login">
+        {{form.hidden_tag()}}
+            <p>
+                    {% if form.call_failed %}
+                              <ul class="errors">Call failed for given number. Please retry.</ul>
+                                      {% endif %}
+                                              {% if form.phone_num.errors %}
+                                                        <ul class="errors">{% for error in form.phone_num.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                                                                {% endif %}
+                                                                        Please enter a phone number:<br>
+                                                                                {{form.phone_num(size=80)}}<br>
+                                                                                    </p>
+                                                                                        <p><input type="submit" value="Submit"></p>
+                                                                                    </form>
+                                                                                    {% endblock %}
