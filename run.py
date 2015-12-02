@@ -32,7 +32,9 @@ def call(numIn):
     resp = twilio.twiml.Response()
     # Get these credentials from http://twilio.com/user/account
     account_sid = os.getenv(TWILIO_USER,default_value)
+    print(account_sid)
     auth_token = os.getenv(TWILIO_SECRET,default_value)
+    print(auth_token)
     client = TwilioRestClient(account_sid, auth_token)
 
     # Make the call
