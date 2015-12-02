@@ -96,14 +96,15 @@ def hello_monkey():
     # a key, redirect them to /handle-key.
     with resp.gather(numDigits=2, action="/handle-key", method="POST") as g:
         g.say("To play fizz buzz, please enter a 2 digit number")
+        print('a')
 
     return str(resp)
     #return render_template('template.html')
 
-@app.route("/handle-key/", methods=['GET', 'POST'])
+@app.route("/handle-key", methods=['GET', 'POST'])
 def handle_key():
     """Handle key press from a user."""
-
+    print('b')
     # Get the digit pressed by the user
     digit_pressed = request.values.get('Digits', None)
     if digit_pressed.isdigit():
@@ -112,6 +113,7 @@ def handle_key():
         fizzBuzzString = fizzbuzz(rawVal)
         resp.say(fizzBuzzString)
         return str(resp)
+
     else:
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
@@ -122,12 +124,12 @@ frontend routes
 '''
 @app.route("/views/", methods=['GET', 'POST'])
 def callRoute(failedCall=False):
-  form = MyForm(request.form, failedCall=failedCall, csrf_enabled = False)
   resp = twilio.twiml.Response()
+  form = MyForm(request.form, failedCall=failedCall, csrf_enabled = False)
   if form.validate_on_submit():
       return call(form.data['phoneNumber'])
   return render_template('form.html',
-        title = 'Enter A Phone Number',
+        title = 'Enter A Phone Number starting with country code +1',
         form = form)
 
 if __name__ == "__main__":
