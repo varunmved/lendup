@@ -1,3 +1,4 @@
+'''
 from flask import Flask, request, redirect,flash, render_template
 from flask.ext.wtf import Form
 from twilio.rest import TwilioRestClient
@@ -5,6 +6,13 @@ import twilio.twiml
 from wtforms import TextField
 from flask import jsonify
 from wtforms.validators import Required, Length, ValidationError
+import os
+'''
+from flask import Flask
+import flask.ext.wtf
+import wtforms
+from twilio.rest import TwilioRestClient
+import twilio.twiml
 import os
 
 app = Flask(__name__)
@@ -31,9 +39,8 @@ utils
 def call(numIn):
     resp = twilio.twiml.Response()
     # Get these credentials from http://twilio.com/user/account
-    # This is copy pasta, I swear I usually put ID/AUTH as a enviorment variable on heroku
-    account_sid = "AC1cc3d40a4dca1cd0ff1af031ff1b14ca"
-    auth_token = "5011a96781ef26d63904ca3b8e3ccb35"
+    account_sid = os.getenv(TWILIO_USER,default_value)
+    auth_token = os.getenv(TWILIO_SECRET,default_value)
     client = TwilioRestClient(account_sid, auth_token)
 
     # Make the call
