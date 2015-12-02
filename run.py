@@ -3,7 +3,6 @@ from flask.ext.wtf import Form
 from twilio.rest import TwilioRestClient
 import twilio.twiml
 from wtforms import TextField
-from flask import jsonify
 from wtforms.validators import Required, Length, ValidationError
 import os
 
@@ -31,10 +30,12 @@ utils
 def call(numIn):
     resp = twilio.twiml.Response()
     # Get these credentials from http://twilio.com/user/account
-    account_sid = os.getenv(TWILIO_USER,default_value)
-    print(account_sid)
-    auth_token = os.getenv(TWILIO_SECRET,default_value)
-    print(auth_token)
+    #account_sid = os.getenv(TWILIO_USER,default_value)
+    #print(account_sid)
+    #auth_token = os.getenv(TWILIO_SECRET,default_value)
+    #print(auth_token)
+    account_sid = 'AC1cc3d40a4dca1cd0ff1af031ff1b14ca'
+    auth_token  = '5011a96781ef26d63904ca3b8e3ccb35'
     client = TwilioRestClient(account_sid, auth_token)
 
     # Make the call
