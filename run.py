@@ -1,4 +1,3 @@
-'''
 from flask import Flask, request, redirect,flash, render_template
 from flask.ext.wtf import Form
 from twilio.rest import TwilioRestClient
@@ -6,13 +5,6 @@ import twilio.twiml
 from wtforms import TextField
 from flask import jsonify
 from wtforms.validators import Required, Length, ValidationError
-import os
-'''
-from flask import Flask
-import flask.ext.wtf
-import wtforms
-from twilio.rest import TwilioRestClient
-import twilio.twiml
 import os
 
 app = Flask(__name__)
